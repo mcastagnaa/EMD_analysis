@@ -10,7 +10,7 @@ head(RawData)
 apply(RawData[c("JP_LCEMD", "SH_LCEMD", "JP_EMD", "SH_EMD")], 2, function(x) sd(x, na.rm=TRUE)*sqrt(12))
 
 RollingObs <- 20
-
+RawData$Date <- as.Date(RawData$Date, format="%d/%m/%Y")
 RollSd <- data.frame(cbind(RawData$Date, 
                            rollapplyr(RawData[c("JP_LCEMD", 
                                                 "SH_LCEMD", 
@@ -35,7 +35,6 @@ ggplot(na.omit(meltdf),
   theme(legend.position="bottom")
 
 
-RawData$Date <- as.Date(RawData$Date, format="%d/%m/%Y")
 RawData$SH_EMDr <- RawData$SH_EMD - RawData$B_EMD
 RawData$SH_LEMDr <- RawData$SH_LCEMD - RawData$B_LCEMD
 RawData$JP_EMDr <- RawData$JP_EMD - RawData$B_EMD
